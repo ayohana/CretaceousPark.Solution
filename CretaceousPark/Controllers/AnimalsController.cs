@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using CretaceousPark.Models;
 
 namespace CretaceousPark.Controllers
@@ -39,5 +40,30 @@ namespace CretaceousPark.Controllers
     {
       return _db.Animals.FirstOrDefault(entry => entry.AnimalId == id);
     }
+
+    // PUT api/animals/5
+    [HttpPut("{id}")]
+    public void Put(int id, [FromBody] Animal animal)
+    {
+        animal.AnimalId = id;
+        _db.Entry(animal).State = EntityState.Modified;
+        _db.SaveChanges();
+    }
+    // PUT is like POST in that it makes a change to the server. However, PUT changes existing information while POST creates new information. Notice we use an [HttpPut] annotation. We use the [FromBody] annotation just as we did with our POST route because we will need to specify the changes we want to make in the body of the API call.
+
+     // DELETE api/animals/5
+    [HttpDelete("{id}")]
+    public void Delete(int id)
+    {
+      var animalToDelete = _db.Animals.FirstOrDefault(entry => entry.AnimalId == id);
+      _db.Animals.Remove(animalToDelete);
+      _db.SaveChanges();
+    }
+
+    // Note that we were able to have all CRUD functionality with only two URLs:
+    // http://localhost:5000/api/animals
+    // and
+    // http://localhost:5000/api/animals/1
+    // The benefits of RESTful standards become more readily apparent with an API. Developers don't need to search through documentation in order to surmise the correct URLs for an API. While a user of a web application might not notice that a URL in the browser is RESTful, a developer using an API certainly will notice whether the URL is RESTful and easy to work with. We should always keep the names of our endpoints as RESTful as possible.
   }
 }
