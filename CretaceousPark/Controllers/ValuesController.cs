@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
+// NOT using this auto-generated controller for this project
 namespace CretaceousPark.Controllers
 {
     [Route("api/[controller]")]
