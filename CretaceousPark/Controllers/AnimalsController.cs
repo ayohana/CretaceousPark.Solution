@@ -19,11 +19,30 @@ namespace CretaceousPark.Controllers
 
     // GET api/animals
     [HttpGet]
-    public ActionResult<IEnumerable<Animal>> Get()
+    public ActionResult<IEnumerable<Animal>> Get(string species, string gender, string name)
     {
-      return _db.Animals.ToList();
+      var query = _db.Animals.AsQueryable();
+      // .AsQueryable() converts an IEnumerable to an IQueryable
+      // We create a variable called query and then collect the list of all animals from our database and return it as a queryable LINQ object. We return a queryable object so that we can use LINQ methods to build onto the query before finalizing our selection.
+      if (species != null)
+      {
+        query = query.Where(entry => entry.Species == species);
+      }
+
+      if (gender != null)
+      {
+        query = query.Where(entry => entry.Gender == gender);
+      }
+
+      if (name != null)
+      {
+      query = query.Where(entry => entry.Name == name);
+      }
+
+      return query.ToList();
     }
     // Our GET route needs to return an ActionResult of type <IEnumerable<Animal>>. In our web applications, we didn't need to specify a type because we were always returning a view.
+    // We've added a parameter to the method of type string that we've called species. The naming here is important as .NET will automatically bind parameter values based on the query string. A call to http://localhost:5000/api/animals?species=dinosaur will now trigger our Get method and automatically bind the value "dinosaur" to the variable species. The framework does this by utilizing Model Binding which we used in our MVC apps to collect information from the route or from forms to use in our controllers.
 
     // POST api/animals
     [HttpPost]
