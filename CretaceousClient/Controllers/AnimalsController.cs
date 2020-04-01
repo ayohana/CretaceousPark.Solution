@@ -12,8 +12,8 @@ namespace CretaceousClient.Controllers
     {
         public IActionResult Index()
         {
-        var allAnimals = Animal.GetAnimals();
-        return View(allAnimals);
+            var allAnimals = Animal.GetAnimals();
+            return View(allAnimals);
         }
 
         public IActionResult Privacy()

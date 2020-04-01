@@ -7,7 +7,7 @@ namespace CretaceousClient.Models
   {
     public static async Task<string> GetAll()
     {
-      RestClient client = new RestClient("http://localhost:5000/api");
+      RestClient client = new RestClient("http://localhost:5001/api/");
       RestRequest request = new RestRequest($"animals", Method.GET);
       var response = await client.ExecuteTaskAsync(request);
       return response.Content;
