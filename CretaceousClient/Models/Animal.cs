@@ -35,5 +35,11 @@ namespace CretaceousClient.Models
 
       return animal;
     }
+
+    public static void Post(Animal animal)
+    {
+      string jsonAnimal = JsonConvert.SerializeObject(animal);
+      var apiCallTask = ApiHelper.Post(jsonAnimal);
+    }
   }
 }

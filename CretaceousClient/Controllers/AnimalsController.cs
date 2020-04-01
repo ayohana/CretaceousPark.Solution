@@ -16,6 +16,13 @@ namespace CretaceousClient.Controllers
             return View(allAnimals);
         }
 
+        [HttpPost]
+        public IActionResult Index(Animal animal)
+        {
+            Animal.Post(animal);
+            return RedirectToAction("Index");
+        }
+
         public IActionResult Details(int id)
         {
         var animal = Animal.GetDetails(id);
