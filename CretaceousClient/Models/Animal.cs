@@ -23,5 +23,17 @@ namespace CretaceousClient.Models
 
       return animalList;
     }
+
+    public static Animal GetDetails(int id)
+    {
+      var apiCallTask = ApiHelper.Get(id);
+      var result = apiCallTask.Result;
+
+      // The API call results in a JSON object as opposed to a JSON array.
+      JObject jsonResponse = JsonConvert.DeserializeObject<JObject>(result);
+      Animal animal = JsonConvert.DeserializeObject<Animal>(jsonResponse.ToString());
+
+      return animal;
+    }
   }
 }

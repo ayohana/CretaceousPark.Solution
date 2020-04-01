@@ -12,5 +12,13 @@ namespace CretaceousClient.Models
       var response = await client.ExecuteTaskAsync(request);
       return response.Content;
     }
+
+    public static async Task<string> Get(int id)
+    {
+      RestClient client = new RestClient("http://localhost:5001/api/");
+      RestRequest request = new RestRequest($"animals/{id}", Method.GET);
+      var response = await client.ExecuteTaskAsync(request);
+      return response.Content;
+    }
   }
 }
